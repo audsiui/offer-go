@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-on-surface": "#eff0fc",
+              "on-surface-variant": "#414755",
+              "on-error": "#ffffff",
+              "error-container": "#ffdad6",
+              "tertiary": "#9e3d00",
+              "primary-container": "#006ef2",
+              "surface-container-low": "#f2f3ff",
+              "primary-fixed-dim": "#afc6ff",
+              "on-primary-fixed": "#001a43",
+              "secondary-container": "#a3befe",
+              "on-primary-container": "#fefcff",
+              "surface-container": "#ecedf9",
+              "secondary": "#425d97",
+              "primary": "#0057c2",
+              "surface-variant": "#e0e2ed",
+              "background": "#faf9ff",
+              "on-secondary-fixed": "#001a43",
+              "on-tertiary-container": "#fffbff",
+              "on-secondary": "#ffffff",
+              "secondary-fixed": "#d9e2ff",
+              "on-surface": "#181b23",
+              "on-tertiary-fixed": "#351000",
+              "primary-fixed": "#d9e2ff",
+              "surface-tint": "#0059c7",
+              "outline-variant": "#c1c6d7",
+              "tertiary-fixed-dim": "#ffb695",
+              "tertiary-fixed": "#ffdbcc",
+              "error": "#ba1a1a",
+              "surface": "#faf9ff",
+              "tertiary-container": "#c64f00",
+              "on-tertiary-fixed-variant": "#7c2e00",
+              "on-primary": "#ffffff",
+              "on-secondary-container": "#2f4b84",
+              "inverse-primary": "#afc6ff",
+              "secondary-fixed-dim": "#afc6ff",
+              "on-primary-fixed-variant": "#004398",
+              "on-tertiary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#28457e",
+              "on-error-container": "#93000a",
+              "outline": "#727786",
+              "inverse-surface": "#2d3039",
+              "surface-bright": "#faf9ff",
+              "surface-container-highest": "#e0e2ed",
+              "surface-dim": "#d8d9e5",
+              "surface-container-high": "#e6e7f3",
+              "on-background": "#181b23"
+            },
+            fontFamily: {
+              "headline": ["Inter", "Noto Sans SC"],
+              "body": ["Inter", "Noto Sans SC"],
+              "label": ["Inter", "Noto Sans SC"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+        .glass-effect { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-20">
+<!-- Top App Bar (Shared Component Strategy) -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm shadow-blue-500/5 flex justify-between items-center px-4 h-14">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="User profile avatar with a friendly face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9jYbSWA6xTjjvS6N0D42MCx6fcn0v9R01hAOHsOicNkdywutyZm28hK5APSdcLUzfIECLYEWO4eq01Uq6T_A4YCvvT7Z4urHotZw4zwUZwti9jID4X87V3C13FClGCCMasMDymO_rVQ6kL-MH2iPM89nvSpCkqyrxygshMEJ7YTt2G5C2HeK55SV1iQweYm6LfsocxTWeYPW_ghqxs2iYQkQRra3QTz0bguQk4S1w1su-5oIYgT69uNoauQZbdkIFtkyO9l-aVsot"/>
+</div>
+<span class="text-blue-600 dark:text-blue-400 font-black text-xl italic tracking-tight">OfferGo</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200">notifications</span>
+<div class="flex items-center gap-1 bg-surface-container-high px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-xs font-bold text-on-surface">12</span>
+</div>
+</div>
+</header>
+<main class="pt-16 px-4 space-y-5">
+<!-- Weekly Progress Bar (本周进度) -->
+<section class="mt-4">
+<div class="flex justify-between items-end mb-3">
+<h2 class="text-on-surface font-bold text-lg">本周进度</h2>
+<span class="text-primary text-xs font-semibold">14/20 题 (70%)</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<div class="flex justify-between gap-1 mb-4">
+<!-- Day Items -->
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full h-12 bg-primary-container rounded-lg flex items-end p-1">
+<div class="w-full h-full bg-primary/20 rounded-sm"></div>
+</div>
+<span class="text-[10px] text-outline font-medium">周一</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full h-12 bg-primary-container rounded-lg flex items-end p-1">
+<div class="w-full h-[80%] bg-primary/20 rounded-sm"></div>
+</div>
+<span class="text-[10px] text-outline font-medium">周二</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full h-12 bg-primary-container rounded-lg flex items-end p-1">
+<div class="w-full h-[60%] bg-primary/20 rounded-sm"></div>
+</div>
+<span class="text-[10px] text-outline font-medium">周三</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full h-12 bg-primary-container rounded-lg flex items-end p-1">
+<div class="w-full h-[90%] bg-primary/20 rounded-sm"></div>
+</div>
+<span class="text-[10px] text-on-surface font-bold">今天</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 opacity-40">
+<div class="w-full h-12 bg-surface-container-high rounded-lg"></div>
+<span class="text-[10px] text-outline font-medium">周五</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 opacity-40">
+<div class="w-full h-12 bg-surface-container-high rounded-lg"></div>
+<span class="text-[10px] text-outline font-medium">周六</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 opacity-40">
+<div class="w-full h-12 bg-surface-container-high rounded-lg"></div>
+<span class="text-[10px] text-outline font-medium">周日</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-xs text-on-surface-variant bg-surface-container-lowest p-2 rounded-lg">
+<span class="material-symbols-outlined text-sm text-primary">auto_awesome</span>
+<span>AI 建议：今天再刷 2 道「动态规划」即可达成目标</span>
+</div>
+</div>
+</section>
+<!-- Trending Challenges (热门挑战) -->
+<section>
+<div class="flex justify-between items-center mb-3">
+<h2 class="text-on-surface font-bold text-lg">热门挑战</h2>
+<span class="text-outline text-xs">查看全部</span>
+</div>
+<div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+<!-- Bento Card 1 -->
+<div class="min-w-[160px] bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-transparent hover:border-primary/10 transition-all flex flex-col justify-between h-40">
+<div>
+<div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-orange-600 text-lg">hotel_class</span>
+</div>
+<h3 class="text-sm font-bold text-on-surface leading-snug">字节跳动 24 届<br/>秋招真题集</h3>
+</div>
+<div class="flex items-center gap-1 text-[10px] text-outline font-medium">
+<span class="material-symbols-outlined text-[12px]">group</span>
+<span>1.2w 人在练</span>
+</div>
+</div>
+<!-- Bento Card 2 -->
+<div class="min-w-[160px] bg-primary text-on-primary p-4 rounded-xl shadow-md flex flex-col justify-between h-40">
+<div>
+<div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-white text-lg">psychology</span>
+</div>
+<h3 class="text-sm font-bold leading-snug">AI 每日算法：<br/>深度优先搜索</h3>
+</div>
+<div class="flex items-center gap-1 text-[10px] text-on-primary/80 font-medium">
+<span class="material-symbols-outlined text-[12px]">timer</span>
+<span>仅剩 14 小时</span>
+</div>
+</div>
+<!-- Bento Card 3 -->
+<div class="min-w-[160px] bg-surface-container-lowest p-4 rounded-xl shadow-sm flex flex-col justify-between h-40">
+<div>
+<div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-blue-600 text-lg">account_tree</span>
+</div>
+<h3 class="text-sm font-bold text-on-surface leading-snug">大厂高频：<br/>链表专题</h3>
+</div>
+<div class="flex items-center gap-1 text-[10px] text-outline font-medium">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+<span>官方精选</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Coding Challenge View (代码编辑器) -->
+<section class="space-y-3">
+<div class="bg-surface-container-high rounded-xl p-4">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded-full font-bold">简单</span>
+<h3 class="text-md font-bold text-on-surface mt-1">206. 反转链表</h3>
+</div>
+<button class="text-primary material-symbols-outlined">fullscreen</button>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+                    给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+                </p>
+</div>
+<!-- Code Editor Mockup -->
+<div class="bg-slate-900 rounded-xl overflow-hidden shadow-lg">
+<div class="flex items-center justify-between px-4 py-2 bg-slate-800/50">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+<span class="text-[10px] text-slate-400 font-mono ml-2 uppercase">solution.py</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-sm">settings</span>
+</div>
+</div>
+<div class="p-4 font-mono text-xs leading-6 overflow-x-auto">
+<div class="flex gap-4">
+<div class="text-slate-600 text-right select-none">
+                            1<br/>2<br/>3<br/>4<br/>5<br/>6
+                        </div>
+<div class="text-slate-300 whitespace-nowrap">
+<span class="text-pink-400">class</span> <span class="text-yellow-200">Solution</span>:<br/>
+                              <span class="text-pink-400">def</span> <span class="text-blue-300">reverseList</span>(self, head):<br/>
+                                prev, curr = <span class="text-pink-400">None</span>, head<br/>
+                                <span class="text-pink-400">while</span> curr:<br/>
+                                  <span class="text-slate-500"># 在此输入代码...</span><br/>
+                                  next_node = curr.next
+                        </div>
+</div>
+</div>
+<!-- Floating AI Hint Button inside Editor context -->
+<div class="px-4 py-3 bg-slate-800/30 flex justify-between items-center">
+<button class="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-xs font-bold transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                        获取 AI 提示
+                    </button>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-lg text-xs font-bold shadow-lg shadow-primary/20 active:scale-95">
+                        提交运行
+                    </button>
+</div>
+</div>
+</section>
+<!-- High-Density Quick Actions Grid -->
+<section class="grid grid-cols-4 gap-4 py-2">
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">history</span>
+</div>
+<span class="text-[10px] font-medium text-outline">刷题记录</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">book</span>
+</div>
+<span class="text-[10px] font-medium text-outline">错题本</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">analytics</span>
+</div>
+<span class="text-[10px] font-medium text-outline">能力雷达</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">workspace_premium</span>
+</div>
+<span class="text-[10px] font-medium text-outline">竞赛大厅</span>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar (Shared Component Strategy) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 pb-safe h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-t border-slate-100 dark:border-slate-800 shadow-[0_-8px_24px_rgba(22,119,255,0.06)] z-50 rounded-t-3xl">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 rounded-xl px-4 py-1 transition-all">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="text-[10px] font-medium font-['PingFang_SC'] mt-0.5">首页</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 rounded-xl px-4 py-1 transition-all">
+<span class="material-symbols-outlined text-[24px]">description</span>
+<span class="text-[10px] font-medium font-['PingFang_SC'] mt-0.5">简历</span>
+</div>
+<div class="flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 font-bold transform scale-110 transition-transform px-4 py-1">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="text-[10px] font-bold font-['PingFang_SC'] mt-0.5">练习</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 rounded-xl px-4 py-1 transition-all">
+<span class="material-symbols-outlined text-[24px]">forum</span>
+<span class="text-[10px] font-medium font-['PingFang_SC'] mt-0.5">面试</span>
+</div>
+</nav>
+<!-- Contextual FAB (Only for Coding/Practice view) -->
+<button class="fixed right-6 bottom-24 w-14 h-14 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform duration-200 z-40">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</button>
+</body></html>

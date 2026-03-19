@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-on-surface": "#eff0fc",
+                        "on-surface-variant": "#414755",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#9e3d00",
+                        "primary-container": "#006ef2",
+                        "surface-container-low": "#f2f3ff",
+                        "primary-fixed-dim": "#afc6ff",
+                        "on-primary-fixed": "#001a43",
+                        "secondary-container": "#a3befe",
+                        "on-primary-container": "#fefcff",
+                        "surface-container": "#ecedf9",
+                        "secondary": "#425d97",
+                        "primary": "#0057c2",
+                        "surface-variant": "#e0e2ed",
+                        "background": "#faf9ff",
+                        "on-secondary-fixed": "#001a43",
+                        "on-tertiary-container": "#fffbff",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d9e2ff",
+                        "on-surface": "#181b23",
+                        "on-tertiary-fixed": "#351000",
+                        "primary-fixed": "#d9e2ff",
+                        "surface-tint": "#0059c7",
+                        "outline-variant": "#c1c6d7",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "tertiary-fixed": "#ffdbcc",
+                        "error": "#ba1a1a",
+                        "surface": "#faf9ff",
+                        "tertiary-container": "#c64f00",
+                        "on-tertiary-fixed-variant": "#7c2e00",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#2f4b84",
+                        "inverse-primary": "#afc6ff",
+                        "secondary-fixed-dim": "#afc6ff",
+                        "on-primary-fixed-variant": "#004398",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#28457e",
+                        "on-error-container": "#93000a",
+                        "outline": "#727786",
+                        "inverse-surface": "#2d3039",
+                        "surface-bright": "#faf9ff",
+                        "surface-container-highest": "#e0e2ed",
+                        "surface-dim": "#d8d9e5",
+                        "surface-container-high": "#e6e7f3",
+                        "on-background": "#181b23"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter", "Noto Sans SC"],
+                        "body": ["Inter", "Noto Sans SC"],
+                        "label": ["Inter", "Noto Sans SC"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', 'Noto Sans SC', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm shadow-blue-500/5 flex justify-between items-center px-4 h-14 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+<span class="text-blue-600 dark:text-blue-400 font-black text-xl italic font-['Inter','PingFang_SC'] tracking-tight">OfferGo</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-error-container px-2 py-0.5 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse mr-1.5"></span>
+<span class="text-[10px] font-bold text-on-error-container tracking-wider">REC</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="User profile avatar icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcMvXAg4csYdYXBfNoiZE-Q4UjngDa3jnsrUolkZLeMPoJLJYNnN1h7tb2rXRfToADfa2ICWbF4QR1HE721W0iGZPQoI6BeglR9VqcGT8y8nF5HopSQmi-eO7iwxnQuGKmvI46YVjB21kzS-rKZgTG99Xu2nxOtaucxcarE_ezKLzHRACfi18JP5sWo80_ceb2N0tBtN8Hkz42gZXi29wqcjgnSfVGTKSGT3aYPYVzdGq0h-OaFdDt3RRq3-Dv4cxie5nebFRJvw7N"/>
+</div>
+</div>
+</header>
+<main class="pt-14 px-4 space-y-4">
+<!-- Interviewer Section: Bento Style -->
+<section class="mt-4 grid grid-cols-12 gap-3">
+<!-- Video/Avatar Main Card -->
+<div class="col-span-12 relative overflow-hidden rounded-3xl bg-surface-container-high aspect-[4/3] shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Professional female interviewer smiling in office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp52vLF9aNyHHlvCG7pOEOQY4Hw0MBtNKj3_UbrUPCQ27QwnjI5UEOcN8a66bByv4DoKmRL0TbDLOdGgjWR5T3xk8zWbQgR7NzR_hf62pu5M79v4051i_AIGUazbxamPhoM2t1sSJ_YV_Qrv7uKEwN20vIRUPiWE4oTmqJQ32q9DrDyvbHCc75j8C-C6P-cJa1JM391kxJNOg2svaieo_jtL1xMRlLeXCuVOW3xDyJsyDedSAWwfNSdd14Z7d_Fkb7dZuR3HPDIUoc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div class="space-y-1">
+<h2 class="text-white font-bold text-lg">Sarah</h2>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-white/20 backdrop-blur-md rounded-full text-[10px] text-white font-medium border border-white/10">高级技术招聘官</span>
+<span class="px-2 py-0.5 bg-primary/80 backdrop-blur-md rounded-full text-[10px] text-white font-medium">Google (Ex)</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="volume_up">volume_up</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Self Preview Floating (Miniature) -->
+<div class="absolute top-20 right-8 w-24 h-32 rounded-2xl border-2 border-white/30 overflow-hidden shadow-2xl z-10 bg-slate-800">
+<img class="w-full h-full object-cover opacity-90" data-alt="Close up of candidate face during video call" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJeEiHCTHqNprAfG01ZjYzuZebEPdcde5KCewJ_sl65p9FNQNYDPshu781cwVRmjzJoyuBgj_7GZtNG8pr5CXQpwAAhaOQ2nXqcywc1FF-GjSz6RqYYSxFHojGPKO1LKGquIFS1NuF73Z6nwgsmEPIcN9uXMmUleuGogAt5CnaZiEyIl1vzhEJahLGhsCAwhnjXG4S5Ov9PEw7yJGopvpYkztYxUfc2qUhRUNluncJh2fNMrCl_YsxRn3uIBTAarFrVoiyFd-kc2or"/>
+<div class="absolute bottom-2 left-0 right-0 text-center">
+<span class="text-[8px] text-white font-bold bg-black/40 px-1.5 py-0.5 rounded-full">你</span>
+</div>
+</div>
+</section>
+<!-- Real-time Transcript Section -->
+<section class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-on-surface font-bold text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="notes">notes</span>
+                    实时转录
+                </h3>
+<span class="text-outline text-[10px]">实时语音识别中...</span>
+</div>
+<div class="bg-surface-container-low rounded-3xl p-4 space-y-4 h-48 overflow-y-auto hide-scrollbar">
+<!-- Interviewer Message -->
+<div class="flex gap-3">
+<div class="w-6 h-6 rounded-full bg-secondary-container flex-shrink-0 flex items-center justify-center">
+<span class="text-[10px] font-bold text-on-secondary-container">S</span>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] text-outline font-bold">面试官</p>
+<div class="bg-surface-container-lowest rounded-2xl rounded-tl-none p-3 shadow-sm border border-slate-100">
+<p class="text-xs text-on-surface leading-relaxed">很好，你能详细描述一下你在处理高并发场景时，如何优化数据库查询性能吗？</p>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-3 flex-row-reverse">
+<div class="w-6 h-6 rounded-full bg-primary flex-shrink-0 flex items-center justify-center">
+<span class="text-[10px] font-bold text-white">你</span>
+</div>
+<div class="space-y-1 items-end flex flex-col">
+<p class="text-[10px] text-outline font-bold">你</p>
+<div class="bg-primary text-white rounded-2xl rounded-tr-none p-3 shadow-md shadow-primary/10">
+<p class="text-xs leading-relaxed">在这个项目中，我们首先引入了 Redis 缓存层来减少对主库的直接访问，并实施了读写分离...</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Feedback Panel -->
+<section class="bg-surface-container-lowest rounded-3xl p-5 shadow-[0_12px_32px_rgba(0,89,199,0.06)] border border-blue-50">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-xl bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div>
+<h3 class="text-on-surface font-bold text-sm">AI 建议已就绪</h3>
+<p class="text-[10px] text-primary font-medium">深度解析你的回答表现</p>
+</div>
+</div>
+<button class="text-primary text-xs font-bold hover:opacity-80 transition-opacity">查看详情</button>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-4">
+<div class="bg-surface-container-high rounded-2xl p-3">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="speed">speed</span>
+<span class="text-[10px] text-outline font-bold">语速控制</span>
+</div>
+<div class="flex items-end gap-1">
+<span class="text-lg font-black text-on-surface">稳健</span>
+<span class="text-[10px] text-green-600 mb-1">115 wpm</span>
+</div>
+</div>
+<div class="bg-surface-container-high rounded-2xl p-3">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="psychology">psychology</span>
+<span class="text-[10px] text-outline font-bold">逻辑结构</span>
+</div>
+<div class="flex items-end gap-1">
+<span class="text-lg font-black text-on-surface">STAR</span>
+<span class="text-[10px] text-primary mb-1">优秀</span>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex gap-3 p-3 bg-primary/5 rounded-2xl border border-primary/10">
+<span class="material-symbols-outlined text-primary text-sm shrink-0" data-icon="tips_and_updates">tips_and_updates</span>
+<p class="text-xs text-on-surface-variant leading-tight">
+<span class="font-bold text-primary">小贴士：</span>尝试在提到 Redis 时补充具体的过期策略，这会让你的技术深度看起来更专业。
+                    </p>
+</div>
+</div>
+</section>
+<!-- Pro Tips / Next Actions -->
+<section class="flex gap-2 pb-8 overflow-x-auto hide-scrollbar">
+<button class="flex-shrink-0 flex items-center gap-2 bg-surface-container-high px-4 py-2.5 rounded-2xl active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="mic_off">mic_off</span>
+<span class="text-xs font-bold text-on-surface-variant">静音</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-2 bg-surface-container-high px-4 py-2.5 rounded-2xl active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="videocam_off">videocam_off</span>
+<span class="text-xs font-bold text-on-surface-variant">关闭摄像头</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-2 bg-error px-4 py-2.5 rounded-2xl text-white font-bold active:scale-95 duration-200">
+<span class="material-symbols-outlined text-sm" data-icon="call_end">call_end</span>
+<span class="text-xs">结束面试</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 pb-safe h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl z-50 rounded-t-3xl border-t border-slate-100 dark:border-slate-800 shadow-[0_-8px_24px_rgba(22,119,255,0.06)]">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 rounded-xl px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-medium font-['PingFang_SC']">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 rounded-xl px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-[10px] font-medium font-['PingFang_SC']">简历</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 rounded-xl px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="text-[10px] font-medium font-['PingFang_SC']">练习</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 font-bold transform scale-110 transition-transform px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="forum" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="text-[10px] font-medium font-['PingFang_SC']">面试</span>
+</a>
+</nav>
+</body></html>
