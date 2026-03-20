@@ -75,19 +75,16 @@ export default function HomePage() {
         <View style={styles.sectionSpacing}>
           <View style={styles.taskGrid}>
             <TaskCard
-              icon="description"
-              iconBgColor="rgba(163, 190, 254, 0.3)"
-              iconColor={Colors.primary}
               title="简历完善"
               description="AI 已分析您的简历，建议优化 3 处项目描述。"
               buttonText="立即优化"
               variant="vertical"
+              backgroundImage={require('../../assets/homepage/jianli.jpg')}
+              titleColor="#1e1b4b"
+              descriptionColor="#312e81"
             />
             <View style={styles.taskColumn}>
               <TaskCard
-                icon="fitness-center"
-                iconBgColor={Colors.tertiaryFixed}
-                iconColor={Colors.tertiary}
                 title="今日题目"
                 description="算法热题：动态规划专项"
                 extra={
@@ -97,19 +94,22 @@ export default function HomePage() {
                     <View style={styles.avatarDot}><Text style={styles.avatarText}>3</Text></View>
                   </View>
                 }
+                backgroundImage={require('../../assets/homepage/lianxi.jpg')}
+                titleColor="#7c2d12"
+                descriptionColor="#9a3412"
               />
               <View style={{ height: Spacing.sm }} />
               <TaskCard
-                icon="forum"
-                iconBgColor={Colors.primaryFixed}
-                iconColor={Colors.primary}
                 title="模拟面试"
                 description="后端架构核心挑战"
                 extra={
                   <View>
-                    <Text style={styles.highlightText}>14:30 预告</Text>
+                    <Text style={styles.highlightTextCyan}>14:30 预告</Text>
                   </View>
                 }
+                backgroundImage={require('../../assets/homepage/mianshi.jpg')}
+                titleColor="#164e63"
+                descriptionColor="#155e75"
               />
             </View>
           </View>
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: Colors.slate['200'],
     borderWidth: 2,
-    borderColor: Colors.surfaceContainerLowest,
+    borderColor: Colors.white,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: -8,
@@ -214,6 +214,12 @@ const styles = StyleSheet.create({
     fontSize: FontSize.xs,
     fontWeight: FontWeight.bold,
     color: Colors.primary,
+    marginTop: Spacing.sm,
+  },
+  highlightTextCyan: {
+    fontSize: FontSize.xs,
+    fontWeight: FontWeight.bold,
+    color: '#0891b2',
     marginTop: Spacing.sm,
   },
   section: {

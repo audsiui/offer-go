@@ -1,39 +1,39 @@
-import { ScrollView, View, StyleSheet, Text } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors, BorderRadius } from '../../constants';
-import { FontWeight, Spacing, Layout } from '../../constants/spacing';
+import { Colors } from '../../constants';
+import { FontSize, FontWeight, Spacing, Layout, BorderRadius } from '../../constants/spacing';
 import { TopAppBar } from '../../components/layout';
-import {
-  InterviewerCard,
-  Transcript,
-  AIFeedback,
-  ActionButtons,
-} from '../../components/screens/interview';
+import { HeroCard, UpcomingCard, HistoryCard } from '../../components/screens/interview';
 
-const messages = [
+const upcomingInterviews = [
   {
     id: '1',
-    sender: 'interviewer' as const,
-    senderName: '面试官',
-    content: '很好，你能详细描述一下你在处理高并发场景时，如何优化数据库查询性能吗？',
+    company: '字节跳动',
+    position: '前端开发',
+    time: '明天 10:00',
+    icon: 'corporate-fare',
+  },
+];
+
+const historyRecords = [
+  {
+    id: '1',
+    company: '腾讯',
+    position: '产品经理',
+    date: '2023-10-24',
+    score: 85,
+    aiTip: '表现稳健，STAR法则应用较好，建议在行业洞察深度上进一步加强。',
+    icon: 'business',
   },
   {
     id: '2',
-    sender: 'user' as const,
-    senderName: '你',
-    content: '在这个项目中，我们首先引入了 Redis 缓存层来减少对主库的直接访问，并实施了读写分离...',
+    company: '美团',
+    position: '算法工程师',
+    date: '2023-10-20',
+    score: 78,
+    aiTip: '算法逻辑清晰，但在代码边界条件处理上存在漏洞，沟通表达尚可。',
+    icon: 'code',
   },
-];
-
-const metrics = [
-  { icon: 'speed', label: '语速控制', value: '稳健', subValue: '115 wpm' },
-  { icon: 'psychology', label: '逻辑结构', value: 'STAR', subValue: '优秀' },
-];
-
-const actions = [
-  { icon: 'mic-off', label: '静音' },
-  { icon: 'videocam-off', label: '关闭摄像头' },
-  { icon: 'call-end', label: '结束面试', variant: 'danger' as const },
 ];
 
 export default function InterviewPage() {
@@ -42,17 +42,11 @@ export default function InterviewPage() {
   return (
     <View style={styles.container}>
       <TopAppBar
-        showBackButton
-        rightContent={
-          <View style={styles.recBadge}>
-            <View style={styles.recDot} />
-            <Text style={styles.recText}>REC</Text>
-          </View>
-        }
         avatarSource={{
           uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDcMvXAg4csYdYXBfNoiZE-Q4UjngDa3jnsrUolkZLeMPoJLJYNnN1h7tb2rXRfToADfa2ICWbF4QR1HE721W0iGZPQoI6BeglR9VqcGT8y8nF5HopSQmi-eO7iwxnQuGKmvI46YVjB21kzS-rKZgTG99Xu2nxOtaucxcarE_ezKLzHRACfi18JP5sWo80_ceb2N0tBtN8Hkz42gZXi29wqcjgnSfVGTKSGT3aYPYVzdGq0h-OaFdDt3RRq3-Dv4cxie5nebFRJvw7N',
         }}
       />
+      
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={[
@@ -61,21 +55,62 @@ export default function InterviewPage() {
         ]}
         showsVerticalScrollIndicator={false}
       >
-        <InterviewerCard
-          name="Sarah"
-          role="高级技术招聘官"
-          company="Google (Ex)"
-          imageUri="https://lh3.googleusercontent.com/aida-public/AB6AXuDp52vLF9aNyHHlvCG7pOEOQY4Hw0MBtNKj3_UbrUPCQ27QwnjI5UEOcN8a66bByv4DoKmRL0TbDLOdGgjWR5T3xk8zWbQgR7NzR_hf62pu5M79v4051i_AIGUazbxamPhoM2t1sSJ_YV_Qrv7uKEwN20vIRUPiWE4oTmqJQ32q9DrDyvbHCc75j8C-C6P-cJa1JM391kxJNOg2svaieo_jtL1xMRlLeXCuVOW3xDyJsyDedSAWwfNSdd14Z7d_Fkb7dZuR3HPDIUoc"
+        <HeroCard
+          title="OfferGo AI 面试官"
+          description="AI 针对岗位需求，为您量身定制面试题，模拟真实场景，助您斩获心仪 Offer。"
+          buttonText="开始新的模拟面试"
+          onPress={() => {}}
         />
 
-        <Transcript messages={messages} />
+        {upcomingInterviews.length > 0 && (
+          <View style={styles.section}>
+            <View style={styles.sectionHeader}>
+              <View style={styles.sectionTitleRow}>
+                <Text style={styles.sectionTitle}>预约面试</Text>
+                <View style={styles.badge}>
+                  <Text style={styles.badgeText}>{upcomingInterviews.length}</Text>
+                </View>
+              </View>
+            </View>
+            
+            {upcomingInterviews.map((item) => (
+              <UpcomingCard
+                key={item.id}
+                company={item.company}
+                position={item.position}
+                time={item.time}
+                icon={item.icon}
+                onNotify={() => {}}
+              />
+            ))}
+          </View>
+        )}
 
-        <AIFeedback
-          metrics={metrics}
-          tip="尝试在提到 Redis 时补充具体的过期策略，这会让你的技术深度看起来更专业。"
-        />
-
-        <ActionButtons actions={actions} />
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>模拟记录</Text>
+            <TouchableOpacity>
+              <Text style={styles.viewAllLink}>查看全部</Text>
+            </TouchableOpacity>
+          </View>
+          
+          <View style={styles.historyList}>
+            {historyRecords.map((item) => (
+              <HistoryCard
+                key={item.id}
+                company={item.company}
+                position={item.position}
+                date={item.date}
+                score={item.score}
+                scoreLabel={item.score >= 85 ? 'Excellent' : 'Good'}
+                aiTip={item.aiTip}
+                icon={item.icon}
+                onReview={() => {}}
+                onViewReport={() => {}}
+              />
+            ))}
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -92,26 +127,44 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: Spacing.lg,
     paddingBottom: Layout.bottomNavHeight + Spacing['5xl'],
-    gap: Spacing.lg,
+    gap: Spacing.xl,
   },
-  recBadge: {
+  section: {
+    gap: Spacing.md,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.xs,
+  },
+  sectionTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.errorContainer,
+    gap: Spacing.sm,
+  },
+  sectionTitle: {
+    fontSize: FontSize.md,
+    fontWeight: FontWeight.bold,
+    color: Colors.onSurface,
+  },
+  badge: {
+    backgroundColor: 'rgba(0, 87, 194, 0.1)',
     paddingHorizontal: Spacing.sm,
     paddingVertical: 2,
     borderRadius: BorderRadius.full,
-    gap: 6,
   },
-  recDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: Colors.error,
-  },
-  recText: {
+  badgeText: {
     fontSize: 10,
     fontWeight: FontWeight.bold,
-    color: Colors.onErrorContainer,
+    color: Colors.primary,
+  },
+  viewAllLink: {
+    fontSize: FontSize.xs,
+    fontWeight: FontWeight.bold,
+    color: Colors.primary,
+  },
+  historyList: {
+    gap: Spacing.lg,
   },
 });

@@ -1,4 +1,3 @@
-export { InterviewerCard } from './InterviewerCard';
-export { Transcript } from './Transcript';
-export { AIFeedback } from './AIFeedback';
-export { ActionButtons } from './ActionButtons';
+export { HeroCard } from './HeroCard';
+export { UpcomingCard } from './UpcomingCard';
+export { HistoryCard } from './HistoryCard';
