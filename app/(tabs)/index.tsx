@@ -1,10 +1,12 @@
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import { MaterialIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants';
-import { FontSize, FontWeight, Spacing, Layout } from '../../constants/spacing';
+import { FontSize, FontWeight, Spacing, Layout, BorderRadius } from '../../constants/spacing';
 import { TopAppBar } from '../../components/layout';
-import { ProgressHeroCard, TaskCard, QuickEntry, JobCard } from '../../components/screens/home';
+import { ProgressHeroCard, TaskCard, QuickEntry } from '../../components/screens/home';
+import { TargetJobCard } from '../../components/screens/jobs';
 
 const quickEntryItems = [
   { icon: 'menu-book', label: '八股文' },
@@ -13,25 +15,32 @@ const quickEntryItems = [
   { icon: 'more-horiz', label: '更多' },
 ];
 
-const recommendedJobs = [
+const mockTargetJobs = [
   {
-    title: '产品经理实习生',
-    company: '腾讯',
-    location: '深圳',
-    salary: '200-300/天',
-    postedAt: '昨日更新',
+    id: '1',
+    title: '前端开发工程师',
+    company: '字节跳动',
+    location: '北京',
+    salary: '25k-45k',
+    jdDescription: '负责抖音前端架构设计与开发，参与核心业务功能实现',
+    jdRequirements: '3年以上前端经验，精通React/Vue，熟悉性能优化',
+    createdAt: '2024-01-15',
   },
   {
-    title: '前端开发工程师',
-    company: '小红书',
-    location: '上海',
+    id: '2',
+    title: '产品经理',
+    company: '腾讯',
+    location: '深圳',
     salary: '30k-50k',
-    postedAt: '刚刚',
+    jdDescription: '负责微信支付产品规划与迭代，推动产品创新',
+    jdRequirements: '5年以上产品经验，有支付或金融产品背景优先',
+    createdAt: '2024-01-10',
   },
 ];
 
 export default function HomePage() {
   const insets = useSafeAreaInsets();
+  const targetJobs = mockTargetJobs;
 
   return (
     <View style={styles.container}>
@@ -112,16 +121,31 @@ export default function HomePage() {
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>待选工作岗位</Text>
+            <Text style={styles.sectionTitle}>目标岗位</Text>
             <TouchableOpacity onPress={() => router.push('/jobs' as any)}>
               <Text style={styles.sectionLink}>查看全部</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.jobList}>
-            {recommendedJobs.map((job, index) => (
-              <JobCard key={index} {...job} />
-            ))}
-          </View>
+          
+          {targetJobs.length === 0 ? (
+            <View style={styles.emptyState}>
+              <MaterialIcons name="work-outline" size={48} color={Colors.outline} />
+              <Text style={styles.emptyTitle}>暂无目标岗位</Text>
+              <Text style={styles.emptyDesc}>添加您心仪的岗位，开启针对性面试准备</Text>
+              <TouchableOpacity 
+                style={styles.emptyBtn}
+                onPress={() => router.push('/jobs/new' as any)}
+              >
+                <Text style={styles.emptyBtnText}>添加目标岗位</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={styles.jobList}>
+              {targetJobs.slice(0, 2).map((job) => (
+                <TargetJobCard key={job.id} job={job} />
+              ))}
+            </View>
+          )}
         </View>
       </ScrollView>
     </View>
@@ -214,5 +238,38 @@ const styles = StyleSheet.create({
   },
   jobList: {
     gap: Spacing.lg,
+  },
+  emptyState: {
+    alignItems: 'center',
+    paddingVertical: Spacing['3xl'],
+    backgroundColor: Colors.surfaceContainerLowest,
+    borderRadius: BorderRadius['2xl'],
+    borderWidth: 1,
+    borderColor: Colors.surfaceContainer,
+    borderStyle: 'dashed',
+  },
+  emptyTitle: {
+    fontSize: FontSize.lg,
+    fontWeight: FontWeight.bold,
+    color: Colors.onSurface,
+    marginTop: Spacing.lg,
+  },
+  emptyDesc: {
+    fontSize: FontSize.sm,
+    color: Colors.onSurfaceVariant,
+    marginTop: Spacing.sm,
+    textAlign: 'center',
+  },
+  emptyBtn: {
+    marginTop: Spacing.lg,
+    backgroundColor: Colors.primary,
+    paddingHorizontal: Spacing.xl,
+    paddingVertical: Spacing.md,
+    borderRadius: BorderRadius['2xl'],
+  },
+  emptyBtnText: {
+    fontSize: FontSize.sm,
+    fontWeight: FontWeight.bold,
+    color: Colors.onPrimary,
   },
 });

@@ -1,36 +1,33 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { router } from 'expo-router';
 import { Colors } from '../constants';
 import { FontSize, FontWeight, Spacing, BorderRadius, Layout } from '../constants/spacing';
+import { TargetJobCard, AddJobModal } from '../components/screens/jobs';
+import type { TargetJob } from '../types/job';
 
-const filters = ['全部', '技术', '产品', '设计', '运营'];
-
-const jobs = [
+const mockJobs: TargetJob[] = [
   {
     id: '1',
     title: '前端开发工程师',
     company: '字节跳动',
     location: '北京',
     salary: '25k-45k',
-    experience: '1-3年',
-    education: '本科',
-    tags: ['React', 'TypeScript', 'Node.js'],
-    postedAt: '刚刚',
-    hot: true,
+    jdDescription: '负责抖音前端架构设计与开发，参与核心业务功能实现，与产品、设计、后端团队紧密协作，推动产品迭代优化。',
+    jdRequirements: '3年以上前端经验，精通React/Vue，熟悉性能优化，有大型项目经验优先。',
+    createdAt: '2024-01-15',
   },
   {
     id: '2',
-    title: '产品经理实习生',
+    title: '产品经理',
     company: '腾讯',
     location: '深圳',
-    salary: '200-300/天',
-    experience: '不限',
-    education: '本科',
-    tags: ['B端产品', '数据分析'],
-    postedAt: '昨日更新',
+    salary: '30k-50k',
+    jdDescription: '负责微信支付产品规划与迭代，推动产品创新，深入理解用户需求，制定产品策略并推动落地。',
+    jdRequirements: '5年以上产品经验，有支付或金融产品背景优先，具备数据分析能力。',
+    createdAt: '2024-01-10',
   },
   {
     id: '3',
@@ -38,39 +35,38 @@ const jobs = [
     company: '阿里巴巴',
     location: '杭州',
     salary: '30k-50k',
-    experience: '3-5年',
-    education: '本科',
-    tags: ['Java', 'Spring', '微服务'],
-    postedAt: '2天前',
-  },
-  {
-    id: '4',
-    title: 'UI设计师',
-    company: '小红书',
-    location: '上海',
-    salary: '20k-35k',
-    experience: '1-3年',
-    education: '本科',
-    tags: ['Figma', '移动端设计'],
-    postedAt: '3天前',
-  },
-  {
-    id: '5',
-    title: '数据分析师',
-    company: '美团',
-    location: '北京',
-    salary: '20k-40k',
-    experience: '1-3年',
-    education: '本科',
-    tags: ['SQL', 'Python', '数据可视化'],
-    postedAt: '1周前',
+    jdDescription: '负责电商平台核心系统架构设计与开发，保障系统高可用、高性能运行。',
+    jdRequirements: '3年以上Java开发经验，熟悉Spring生态，有分布式系统设计经验。',
+    createdAt: '2024-01-08',
   },
 ];
 
 export default function JobsPage() {
   const insets = useSafeAreaInsets();
-  const [activeFilter, setActiveFilter] = useState('全部');
-  const [searchText, setSearchText] = useState('');
+  const [jobs, setJobs] = useState<TargetJob[]>(mockJobs);
+  const [showAddModal, setShowAddModal] = useState(false);
+
+  const handleDelete = (job: TargetJob) => {
+    Alert.alert(
+      '删除岗位',
+      `确定要删除「${job.title}」吗？`,
+      [
+        { text: '取消', style: 'cancel' },
+        { 
+          text: '删除', 
+          style: 'destructive',
+          onPress: () => setJobs(jobs.filter(j => j.id !== job.id))
+        },
+      ]
+    );
+  };
+
+  const handleStartInterview = (job: TargetJob) => {
+    router.push({
+      pathname: '/interview' as any,
+      params: { jobId: job.id, jobTitle: job.title, company: job.company }
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -78,87 +74,76 @@ export default function JobsPage() {
         <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
           <MaterialIcons name="arrow-back" size={24} color={Colors.primary} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>待选工作岗位</Text>
+        <Text style={styles.headerTitle}>我的目标岗位</Text>
         <View style={{ width: 40 }} />
       </View>
 
-      <View style={styles.searchSection}>
-        <View style={styles.searchBox}>
-          <MaterialIcons name="search" size={20} color={Colors.outline} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="搜索职位、公司"
-            placeholderTextColor={Colors.outline}
-            value={searchText}
-            onChangeText={setSearchText}
-          />
+      <View style={styles.statsBar}>
+        <View style={styles.statItem}>
+          <Text style={styles.statNum}>{jobs.length}</Text>
+          <Text style={styles.statLabel}>目标岗位</Text>
         </View>
-
-        <View style={styles.filterRow}>
-          {filters.map((filter) => (
-            <TouchableOpacity
-              key={filter}
-              style={[styles.filterTab, activeFilter === filter && styles.filterTabActive]}
-              onPress={() => setActiveFilter(filter)}
-              activeOpacity={0.8}
-            >
-              <Text style={[styles.filterText, activeFilter === filter && styles.filterTextActive]}>
-                {filter}
-              </Text>
-            </TouchableOpacity>
-          ))}
+        <View style={styles.statDivider} />
+        <View style={styles.statItem}>
+          <Text style={styles.statNum}>{jobs.filter(j => j).length}</Text>
+          <Text style={styles.statLabel}>待准备</Text>
+        </View>
+        <View style={styles.statDivider} />
+        <View style={styles.statItem}>
+          <TouchableOpacity 
+            style={styles.uploadEntry}
+            onPress={() => setShowAddModal(true)}
+          >
+            <MaterialIcons name="add" size={16} color={Colors.primary} />
+            <Text style={styles.uploadText}>新增目标岗位</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + Spacing['3xl'] }]}
-        showsVerticalScrollIndicator={false}
-      >
-        {jobs.map((job) => (
-          <TouchableOpacity key={job.id} style={styles.jobCard} activeOpacity={0.9}>
-            <View style={styles.jobHeader}>
-              <View style={styles.jobMain}>
-                <Text style={styles.jobTitle}>{job.title}</Text>
-                <Text style={styles.jobSalary}>{job.salary}</Text>
-              </View>
-              <View style={styles.logoPlaceholder}>
-                <Text style={styles.logoText}>{job.company[0]}</Text>
-              </View>
-            </View>
+      {jobs.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <View style={styles.emptyState}>
+            <MaterialIcons name="work-outline" size={64} color={Colors.outline} />
+            <Text style={styles.emptyTitle}>还没有目标岗位</Text>
+            <Text style={styles.emptyDesc}>添加您心仪的岗位，AI 将根据 JD 为您定制面试题目</Text>
+            <TouchableOpacity 
+              style={styles.emptyBtn}
+              onPress={() => router.push('/jobs/new' as any)}
+            >
+              <MaterialIcons name="add" size={20} color={Colors.onPrimary} />
+              <Text style={styles.emptyBtnText}>添加目标岗位</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : (
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + Spacing['3xl'] }]}
+          showsVerticalScrollIndicator={false}
+        >
+          {jobs.map((job) => (
+            <TargetJobCard
+              key={job.id}
+              job={job}
+              onStartInterview={() => handleStartInterview(job)}
+            />
+          ))}
+        </ScrollView>
+      )}
 
-            <View style={styles.jobMeta}>
-              <Text style={styles.metaText}>{job.company}</Text>
-              <Text style={styles.metaDot}>·</Text>
-              <Text style={styles.metaText}>{job.location}</Text>
-              <Text style={styles.metaDot}>·</Text>
-              <Text style={styles.metaText}>{job.experience}</Text>
-              <Text style={styles.metaDot}>·</Text>
-              <Text style={styles.metaText}>{job.education}</Text>
-            </View>
-
-            <View style={styles.tagRow}>
-              {job.tags.map((tag, index) => (
-                <View key={index} style={styles.tag}>
-                  <Text style={styles.tagText}>{tag}</Text>
-                </View>
-              ))}
-              {job.hot && (
-                <View style={styles.hotTag}>
-                  <Text style={styles.hotTagText}>热招</Text>
-                </View>
-              )}
-            </View>
-
-            <View style={styles.jobFooter}>
-              <Text style={styles.postedAt}>{job.postedAt}</Text>
-              <TouchableOpacity style={styles.applyBtn}>
-                <Text style={styles.applyBtnText}>投递简历</Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <AddJobModal
+        visible={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onManualAdd={() => {
+          setShowAddModal(false);
+          router.push('/jobs/new' as any);
+        }}
+        onImageUpload={() => {
+          setShowAddModal(false);
+          // TODO: 实现图片上传和 OCR 解析
+          Alert.alert('提示', '图片上传功能开发中，敬请期待');
+        }}
+      />
     </View>
   );
 }
@@ -186,49 +171,47 @@ const styles = StyleSheet.create({
     fontWeight: FontWeight.bold,
     color: Colors.onSurface,
   },
-  searchSection: {
+  statsBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.lg,
     backgroundColor: Colors.surface,
     borderBottomWidth: 1,
     borderBottomColor: Colors.slate['100'],
   },
-  searchBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 48,
-    backgroundColor: Colors.surfaceContainerLow,
-    borderRadius: BorderRadius['2xl'],
-    paddingHorizontal: Spacing.lg,
-    gap: Spacing.md,
-    marginBottom: Spacing.lg,
-  },
-  searchInput: {
+  statItem: {
     flex: 1,
-    fontSize: FontSize.md,
+    alignItems: 'center',
+  },
+  statNum: {
+    fontSize: FontSize['2xl'],
+    fontWeight: FontWeight.bold,
     color: Colors.onSurface,
   },
-  filterRow: {
-    flexDirection: 'row',
-    gap: Spacing.sm,
+  statLabel: {
+    fontSize: FontSize.xs,
+    color: Colors.onSurfaceVariant,
+    marginTop: 2,
   },
-  filterTab: {
+  statDivider: {
+    width: 1,
+    height: 32,
+    backgroundColor: Colors.surfaceContainer,
+  },
+  uploadEntry: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: Colors.primaryFixed,
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.sm,
-    borderBottomWidth: 2,
-    borderBottomColor: 'transparent',
+    borderRadius: BorderRadius['2xl'],
   },
-  filterTabActive: {
-    borderBottomColor: Colors.primary,
-  },
-  filterText: {
-    fontSize: FontSize.md,
-    fontWeight: FontWeight.medium,
-    color: Colors.onSurfaceVariant,
-  },
-  filterTextActive: {
-    color: Colors.primary,
+  uploadText: {
+    fontSize: FontSize.sm,
     fontWeight: FontWeight.bold,
+    color: Colors.primary,
   },
   scrollView: {
     flex: 1,
@@ -238,106 +221,48 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.lg,
     gap: Spacing.lg,
   },
-  jobCard: {
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.xl,
+  },
+  emptyState: {
+    alignItems: 'center',
+    paddingVertical: Spacing['3xl'],
+    paddingHorizontal: Spacing.xl,
     backgroundColor: Colors.surfaceContainerLowest,
     borderRadius: BorderRadius['2xl'],
-    padding: Spacing.lg,
     borderWidth: 1,
     borderColor: Colors.surfaceContainer,
+    borderStyle: 'dashed',
+    width: '100%',
   },
-  jobHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: Spacing.md,
-  },
-  jobMain: {
-    flex: 1,
-  },
-  jobTitle: {
-    fontSize: FontSize.lg,
-    fontWeight: FontWeight.bold,
-    color: Colors.onSurface,
-    marginBottom: Spacing.xs,
-  },
-  jobSalary: {
-    fontSize: FontSize.md,
-    fontWeight: FontWeight.bold,
-    color: Colors.tertiary,
-  },
-  logoPlaceholder: {
-    width: 44,
-    height: 44,
-    borderRadius: BorderRadius.lg,
-    backgroundColor: Colors.primaryFixed,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoText: {
+  emptyTitle: {
     fontSize: FontSize.xl,
     fontWeight: FontWeight.bold,
-    color: Colors.primary,
+    color: Colors.onSurface,
+    marginTop: Spacing.lg,
   },
-  jobMeta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    marginBottom: Spacing.md,
-  },
-  metaText: {
+  emptyDesc: {
     fontSize: FontSize.sm,
     color: Colors.onSurfaceVariant,
+    marginTop: Spacing.sm,
+    textAlign: 'center',
+    lineHeight: 20,
   },
-  metaDot: {
-    color: Colors.onSurfaceVariant,
-    marginHorizontal: Spacing.xs,
-  },
-  tagRow: {
+  emptyBtn: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Spacing.sm,
-    marginBottom: Spacing.md,
-  },
-  tag: {
-    backgroundColor: Colors.surfaceContainerLow,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.lg,
-  },
-  tagText: {
-    fontSize: FontSize.xs,
-    color: Colors.onSurfaceVariant,
-  },
-  hotTag: {
-    backgroundColor: Colors.tertiaryFixed,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.lg,
-  },
-  hotTagText: {
-    fontSize: FontSize.xs,
-    fontWeight: FontWeight.bold,
-    color: Colors.tertiary,
-  },
-  jobFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: Spacing.md,
-    borderTopWidth: 1,
-    borderTopColor: Colors.surfaceContainer,
-  },
-  postedAt: {
-    fontSize: FontSize.xs,
-    color: Colors.outline,
-  },
-  applyBtn: {
+    gap: 8,
+    marginTop: Spacing.xl,
     backgroundColor: Colors.primary,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.xl,
+    paddingVertical: Spacing.md,
     borderRadius: BorderRadius['2xl'],
   },
-  applyBtnText: {
-    fontSize: FontSize.sm,
+  emptyBtnText: {
+    fontSize: FontSize.md,
     fontWeight: FontWeight.bold,
     color: Colors.onPrimary,
   },
