@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 import { Colors } from '../../../constants';
 import { FontSize, FontWeight, Spacing, BorderRadius } from '../../../constants/spacing';
 
@@ -34,7 +35,13 @@ export function JobCard({
       </View>
       <View style={styles.content}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.company}>{company} · {location}</Text>
+        <View style={styles.metaRow}>
+          <MaterialIcons name="business" size={14} color={Colors.onSurfaceVariant} />
+          <Text style={styles.company}>{company}</Text>
+          <Text style={styles.dot}>·</Text>
+          <MaterialIcons name="location-on" size={14} color={Colors.onSurfaceVariant} />
+          <Text style={styles.location}>{location}</Text>
+        </View>
       </View>
       <View style={styles.right}>
         <Text style={styles.salary}>{salary}</Text>
@@ -47,39 +54,41 @@ export function JobCard({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.surfaceContainerLowest,
-    borderRadius: BorderRadius.xl,
+    borderRadius: BorderRadius['2xl'],
     padding: Spacing.lg,
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.lg,
     shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: Colors.surfaceContainer,
   },
   logoContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: BorderRadius.lg,
+    width: 52,
+    height: 52,
+    borderRadius: BorderRadius.xl,
     backgroundColor: Colors.slate['100'],
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
   },
   logo: {
-    width: 32,
-    height: 32,
+    width: 36,
+    height: 36,
   },
   logoPlaceholder: {
     width: '100%',
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.surfaceContainerHigh,
+    backgroundColor: Colors.primaryFixed,
   },
   logoText: {
-    fontSize: FontSize.lg,
+    fontSize: FontSize['2xl'],
     fontWeight: FontWeight.bold,
     color: Colors.primary,
   },
@@ -87,26 +96,39 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: FontSize.md,
+    fontSize: FontSize.lg,
     fontWeight: FontWeight.bold,
     color: Colors.onSurface,
-    marginBottom: 2,
+    marginBottom: Spacing.xs,
+  },
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   company: {
-    fontSize: FontSize.xs,
+    fontSize: FontSize.sm,
+    color: Colors.onSurfaceVariant,
+  },
+  dot: {
+    color: Colors.onSurfaceVariant,
+    marginHorizontal: 2,
+  },
+  location: {
+    fontSize: FontSize.sm,
     color: Colors.onSurfaceVariant,
   },
   right: {
     alignItems: 'flex-end',
   },
   salary: {
-    fontSize: FontSize.xs,
+    fontSize: FontSize.md,
     fontWeight: FontWeight.bold,
     color: Colors.tertiary,
   },
   postedAt: {
-    fontSize: 10,
+    fontSize: FontSize.xs,
     color: Colors.outline,
-    marginTop: 4,
+    marginTop: Spacing.xs,
   },
 });

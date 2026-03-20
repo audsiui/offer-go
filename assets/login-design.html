@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary": "#9e3d00",
+              "surface": "#faf9ff",
+              "on-tertiary-fixed-variant": "#7c2e00",
+              "on-primary-container": "#fefcff",
+              "surface-container-lowest": "#ffffff",
+              "surface-container": "#ecedf9",
+              "surface-bright": "#faf9ff",
+              "on-error-container": "#93000a",
+              "primary-container": "#006ef2",
+              "on-error": "#ffffff",
+              "on-secondary-fixed-variant": "#28457e",
+              "surface-variant": "#e0e2ed",
+              "on-tertiary-fixed": "#351000",
+              "on-background": "#181b23",
+              "background": "#faf9ff",
+              "error": "#ba1a1a",
+              "surface-container-low": "#f2f3ff",
+              "on-secondary-container": "#2f4b84",
+              "secondary-fixed-dim": "#afc6ff",
+              "outline-variant": "#c1c6d7",
+              "primary": "#0057c2",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed-variant": "#004398",
+              "inverse-primary": "#afc6ff",
+              "error-container": "#ffdad6",
+              "surface-container-highest": "#e0e2ed",
+              "on-surface-variant": "#414755",
+              "surface-tint": "#0059c7",
+              "surface-dim": "#d8d9e5",
+              "inverse-on-surface": "#eff0fc",
+              "primary-fixed-dim": "#afc6ff",
+              "surface-container-high": "#e6e7f3",
+              "on-primary-fixed": "#001a43",
+              "inverse-surface": "#2d3039",
+              "primary-fixed": "#d9e2ff",
+              "tertiary-fixed": "#ffdbcc",
+              "on-secondary-fixed": "#001a43",
+              "secondary-container": "#a3befe",
+              "secondary-fixed": "#d9e2ff",
+              "on-surface": "#181b23",
+              "on-primary": "#ffffff",
+              "secondary": "#425d97",
+              "tertiary-fixed-dim": "#ffb695",
+              "on-tertiary-container": "#fffbff",
+              "on-secondary": "#ffffff",
+              "tertiary-container": "#c64f00",
+              "outline": "#727786"
+            },
+            fontFamily: {
+              "headline": ["Inter", "PingFang SC", "Microsoft YaHei", "sans-serif"],
+              "body": ["Inter", "PingFang SC", "Microsoft YaHei", "sans-serif"],
+              "label": ["Inter", "PingFang SC", "Microsoft YaHei", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', 'PingFang SC', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        [data-tab-content] { display: none; }
+        [data-tab-content].active { display: block; }
+        .tab-btn.active { 
+            color: #0057c2;
+            border-bottom: 2px solid #0057c2;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg fixed top-0 w-full z-50">
+<div class="flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center space-x-2">
+<span class="text-2xl font-black tracking-tighter text-blue-600 dark:text-blue-500">OfferGo</span>
+</div>
+<div class="flex items-center">
+<button class="text-slate-500 dark:text-slate-400 font-['Inter'] font-semibold text-lg tracking-tight hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors px-3 py-1 rounded-lg active:scale-95 duration-200">
+                    帮助
+                </button>
+</div>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] opacity-20"></div>
+</header>
+<main class="flex-grow pt-24 pb-12 px-8 flex flex-col items-center">
+<!-- Abstract Decoration -->
+<div class="fixed top-20 right-[-10%] w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+<div class="fixed bottom-10 left-[-10%] w-80 h-80 bg-secondary-container/10 rounded-full blur-3xl -z-10"></div>
+<!-- Main Title Section -->
+<div class="w-full mb-8 text-left">
+<h1 class="text-4xl font-extrabold text-on-surface tracking-tight mb-3">
+                登录 / 注册
+            </h1>
+<p class="text-on-surface-variant font-medium text-base">
+                登录即注册，快速开启您的 Offer 之路
+            </p>
+</div>
+<!-- Tab Interface -->
+<div class="w-full flex border-b border-outline-variant mb-8">
+<button class="tab-btn active flex-1 py-4 text-center font-bold text-sm transition-all" id="tab-one-click" onclick="switchTab('one-click')">
+                手机号一键登录
+            </button>
+<button class="tab-btn flex-1 py-4 text-center font-bold text-sm text-on-surface-variant transition-all" id="tab-code" onclick="switchTab('code')">
+                验证码登录
+            </button>
+</div>
+<!-- Tab Content: One-click Login -->
+<div class="tab-content active w-full space-y-8" id="content-one-click">
+<div class="bg-surface-container-high rounded-2xl p-8 flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
+</div>
+<div class="mb-8">
+<p class="text-on-surface-variant text-sm mb-1">本机号码直接登录</p>
+<p class="text-2xl font-bold tracking-tight">138 **** 8888</p>
+</div>
+<button class="w-full h-16 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-lg rounded-xl shadow-[0_12px_32px_rgba(0,89,199,0.15)] active:scale-95 transition-all duration-200 flex items-center justify-center space-x-2">
+<span>本机号码一键登录</span>
+</button>
+<p class="mt-4 text-xs text-on-surface-variant">由 中国移动/联通/电信 提供认证服务</p>
+</div>
+</div>
+<!-- Tab Content: Verification Code -->
+<div class="tab-content w-full space-y-6 hidden" id="content-code">
+<div class="space-y-4">
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-xl">smartphone</span>
+</div>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-high border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-200 text-on-surface placeholder:text-outline font-medium" placeholder="手机号" type="tel"/>
+</div>
+<div class="flex space-x-3">
+<div class="relative flex-grow">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-xl">shield_lock</span>
+</div>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-high border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-200 text-on-surface placeholder:text-outline font-medium" placeholder="短信验证码" type="number"/>
+</div>
+<button class="h-14 px-6 bg-surface-container-low text-primary font-semibold rounded-xl active:scale-95 transition-all hover:bg-surface-container-highest">
+                        获取验证码
+                    </button>
+</div>
+</div>
+<button class="w-full h-16 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-lg rounded-xl shadow-[0_12px_32px_rgba(0,89,199,0.15)] active:scale-95 transition-all duration-200">
+                登录 / 注册
+            </button>
+</div>
+<!-- Agreement Section -->
+<div class="mt-auto pt-12 w-full">
+<label class="flex items-start space-x-3 cursor-pointer group">
+<div class="relative flex items-center justify-center mt-1">
+<input class="peer appearance-none w-5 h-5 rounded-md border-2 border-outline-variant checked:bg-primary checked:border-primary transition-all cursor-pointer" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<span class="text-sm text-on-surface-variant leading-relaxed">
+                    我已阅读并同意
+                    <a class="text-primary font-semibold hover:underline" href="#">《用户协议》</a>
+                    和
+                    <a class="text-primary font-semibold hover:underline" href="#">《隐私政策》</a>
+                    。登录即注册。
+                </span>
+</label>
+</div>
+</main>
+<script>
+        function switchTab(tab) {
+            const oneClickBtn = document.getElementById('tab-one-click');
+            const codeBtn = document.getElementById('tab-code');
+            const oneClickContent = document.getElementById('content-one-click');
+            const codeContent = document.getElementById('content-code');
+
+            if (tab === 'one-click') {
+                oneClickBtn.classList.add('active', 'text-primary');
+                oneClickBtn.classList.remove('text-on-surface-variant');
+                codeBtn.classList.remove('active', 'text-primary');
+                codeBtn.classList.add('text-on-surface-variant');
+                oneClickContent.classList.remove('hidden');
+                codeContent.classList.add('hidden');
+            } else {
+                codeBtn.classList.add('active', 'text-primary');
+                codeBtn.classList.remove('text-on-surface-variant');
+                oneClickBtn.classList.remove('active', 'text-primary');
+                oneClickBtn.classList.add('text-on-surface-variant');
+                codeContent.classList.remove('hidden');
+                oneClickContent.classList.add('hidden');
+            }
+        }
+    </script>
+<div style="display: none;">
+<img data-alt="Soft blue and purple abstract gradient background pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1TAx3o_SCdQ1ADPp4yMI8RS2vVIjHmCZR5PxrjHz-mlvYMRSzCozhCKuDQuqfuBqVTybxWW5ct9SL9TQsgsAXuja9Hn08Jkpk_IUm80ckTIocZloURXmSi_Oi4ygKaVYMy4lm8vnfiBn2WNy6oPbKpI0x20yLndFQiYMYC6-QAhPcm5QoWd8lyB47lKiN7J5WY4NPc9xgfH1GgchuUletP7V2yOiRPAZtJiewL44bQBLTAmC6enMYOTyZ2Vx-htaGCyLGtu62VDVz"/>
+</div>
+</body></html>

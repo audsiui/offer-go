@@ -28,7 +28,7 @@ export function OptimizationFeed({ suggestions }: OptimizationFeedProps) {
         <Card key={index} style={styles.card} variant="elevated">
           <View style={styles.cardContent}>
             <View style={[styles.iconContainer, { backgroundColor: item.iconBgColor }]}>
-              <MaterialIcons name={item.icon as any} size={20} color={item.iconColor} />
+              <MaterialIcons name={item.icon as any} size={24} color={item.iconColor} />
             </View>
             <View style={styles.textContent}>
               <View style={styles.titleRow}>
@@ -46,22 +46,21 @@ export function OptimizationFeed({ suggestions }: OptimizationFeedProps) {
 
 const styles = StyleSheet.create({
   container: {
-    gap: Spacing.md,
+    gap: Spacing.lg,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 4,
   },
   title: {
-    fontSize: FontSize.lg,
+    fontSize: FontSize.xl,
     fontWeight: FontWeight.bold,
     color: Colors.onSurface,
   },
   link: {
     fontSize: FontSize.sm,
-    fontWeight: FontWeight.medium,
+    fontWeight: FontWeight.bold,
     color: Colors.primary,
   },
   card: {
@@ -72,8 +71,8 @@ const styles = StyleSheet.create({
     gap: Spacing.lg,
   },
   iconContainer: {
-    width: 40,
-    height: 40,
+    width: 48,
+    height: 48,
     borderRadius: BorderRadius.xl,
     alignItems: 'center',
     justifyContent: 'center',
@@ -85,16 +84,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: Spacing.xs,
   },
   cardTitle: {
-    fontSize: FontSize.md,
+    fontSize: FontSize.lg,
     fontWeight: FontWeight.bold,
     color: Colors.onSurface,
   },
   description: {
-    fontSize: FontSize.xs,
+    fontSize: FontSize.sm,
     color: Colors.onSurfaceVariant,
-    lineHeight: 18,
+    lineHeight: 22,
   },
 });

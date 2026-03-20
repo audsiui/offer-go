@@ -1,15 +1,15 @@
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors } from '../constants';
-import { FontSize, FontWeight, Spacing, Layout } from '../constants/spacing';
-import { TopAppBar, BottomNavBar, FAB } from '../components/layout';
+import { Colors } from '../../constants';
+import { FontSize, FontWeight, Spacing, Layout } from '../../constants/spacing';
+import { TopAppBar, FAB } from '../../components/layout';
 import {
   HealthScoreCard,
   UploadCard,
   OptimizationFeed,
   ThemeSelector,
   ToolBox,
-} from '../components/screens/resume';
+} from '../../components/screens/resume';
 
 const suggestions = [
   {
@@ -68,28 +68,33 @@ export default function ResumePage() {
           </Text>
         </View>
 
-        <View style={styles.topGrid}>
-          <View style={styles.scoreColumn}>
-            <HealthScoreCard
-              score={72}
-              status="待提升"
-              suggestion='您的"工作经验"描述较为笼统，建议增加量化成果。'
-            />
-          </View>
-          <View style={styles.uploadColumn}>
-            <UploadCard />
+        <View style={styles.sectionSpacing}>
+          <View style={styles.topGrid}>
+            <View style={styles.scoreCard}>
+              <HealthScoreCard
+                score={72}
+                status="待提升"
+                suggestion='您的"工作经验"描述较为笼统，建议增加量化成果。'
+              />
+            </View>
+            <View style={styles.uploadCard}>
+              <UploadCard />
+            </View>
           </View>
         </View>
 
-        <OptimizationFeed suggestions={suggestions} />
+        <View style={styles.sectionSpacing}>
+          <OptimizationFeed suggestions={suggestions} />
+        </View>
 
-        <ThemeSelector options={themeOptions} />
+        <View style={styles.sectionSpacing}>
+          <ThemeSelector options={themeOptions} />
+        </View>
 
         <View style={styles.toolbox}>
           <ToolBox tools={tools} />
         </View>
       </ScrollView>
-      <BottomNavBar />
       <FAB icon="edit" onPress={() => {}} />
     </View>
   );
@@ -105,33 +110,38 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: Spacing.lg,
-    paddingBottom: Layout.bottomNavHeight + Spacing['5xl'],
+    paddingBottom: Layout.bottomNavHeight + Spacing['4xl'],
   },
   welcome: {
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing.sm,
   },
   welcomeTitle: {
-    fontSize: FontSize['2xl'],
+    fontSize: FontSize['3xl'],
     fontWeight: FontWeight.bold,
     color: Colors.onSurface,
+    letterSpacing: 0.5,
   },
   welcomeSubtitle: {
     fontSize: FontSize.sm,
     color: Colors.onSurfaceVariant,
-    marginTop: 4,
+    marginTop: Spacing.xs,
+    lineHeight: 20,
+  },
+  sectionSpacing: {
+    marginBottom: Spacing.xl,
   },
   topGrid: {
     flexDirection: 'row',
     gap: Spacing.lg,
-    marginBottom: Spacing.xl,
+    alignItems: 'stretch',
   },
-  scoreColumn: {
-    flex: 5,
+  scoreCard: {
+    flex: 1,
   },
-  uploadColumn: {
-    flex: 7,
+  uploadCard: {
+    flex: 1,
   },
   toolbox: {
-    marginBottom: Spacing['5xl'],
+    marginBottom: Spacing['4xl'],
   },
 });

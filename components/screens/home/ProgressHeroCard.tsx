@@ -2,7 +2,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../../constants';
 import { FontSize, FontWeight, Spacing, BorderRadius } from '../../../constants/spacing';
-import { ProgressBar } from '../../common';
 
 type ProgressHeroCardProps = {
   progress: number;
@@ -34,16 +33,18 @@ export function ProgressHeroCard({
             <Text style={styles.targetText}>目标: {targetCompany}</Text>
           </View>
         </View>
-        <ProgressBar
-          progress={progress}
-          height={10}
-          backgroundColor="rgba(255, 255, 255, 0.2)"
-          fillColor={Colors.white}
-        />
+
+        <View style={styles.progressContainer}>
+          <View style={styles.progressTrack}>
+            <View style={[styles.progressFill, { width: `${progress}%` }]} />
+          </View>
+        </View>
+
         <View style={styles.footer}>
           <Text style={styles.footerText}>已完成 {completedItems} 项准备</Text>
           <Text style={styles.footerText}>还差 {remainingItems} 个核心环节</Text>
         </View>
+
         <View style={styles.decorativeCircle} />
       </LinearGradient>
     </View>
@@ -52,12 +53,17 @@ export function ProgressHeroCard({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: BorderRadius.xl,
+    borderRadius: BorderRadius['2xl'],
     overflow: 'hidden',
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.3,
+    shadowRadius: 24,
+    elevation: 12,
   },
   gradient: {
     padding: Spacing.xl,
-    gap: Spacing.md,
+    gap: Spacing.lg,
   },
   header: {
     flexDirection: 'row',
@@ -66,14 +72,17 @@ const styles = StyleSheet.create({
   },
   subLabel: {
     fontSize: FontSize.xs,
-    color: Colors.primaryFixed,
-    marginBottom: 4,
+    color: 'rgba(255, 255, 255, 0.8)',
+    marginBottom: Spacing.xs,
+    fontWeight: FontWeight.medium,
+    letterSpacing: 0.5,
   },
   title: {
-    fontSize: FontSize['3xl'],
+    fontSize: 32,
     fontWeight: FontWeight.black,
-    fontStyle: 'italic',
     color: Colors.onPrimary,
+    fontStyle: 'italic',
+    letterSpacing: -0.5,
   },
   targetBadge: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -82,18 +91,37 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.full,
   },
   targetText: {
-    fontSize: FontSize.xs,
+    fontSize: 10,
     fontWeight: FontWeight.bold,
     color: Colors.onPrimary,
+  },
+  progressContainer: {
+    marginTop: Spacing.xs,
+  },
+  progressTrack: {
+    height: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: BorderRadius.full,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: Colors.white,
+    borderRadius: BorderRadius.full,
+    shadowColor: Colors.white,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: Spacing.xs,
   },
   footerText: {
-    fontSize: FontSize.xs,
-    color: Colors.onPrimary,
-    opacity: 0.9,
+    fontSize: 10,
+    fontWeight: FontWeight.medium,
+    color: 'rgba(255, 255, 255, 0.9)',
   },
   decorativeCircle: {
     position: 'absolute',

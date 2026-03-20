@@ -1,14 +1,14 @@
 import { ScrollView, View, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors } from '../constants';
-import { Spacing, Layout } from '../constants/spacing';
-import { TopAppBar, BottomNavBar, FAB } from '../components/layout';
+import { Colors } from '../../constants';
+import { Spacing, Layout } from '../../constants/spacing';
+import { TopAppBar, FAB } from '../../components/layout';
 import {
   WeeklyProgress,
   TrendingChallenges,
   CodeEditor,
   QuickActions,
-} from '../components/screens/practice';
+} from '../../components/screens/practice';
 
 const weekDays = [
   { day: '周一', progress: 100 },
@@ -100,7 +100,6 @@ export default function PracticePage() {
 
         <QuickActions actions={quickActions} />
       </ScrollView>
-      <BottomNavBar />
       <FAB icon="rocket-launch" onPress={() => {}} />
     </View>
   );

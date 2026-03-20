@@ -12,13 +12,11 @@ export default function RootLayout() {
           contentStyle: {
             backgroundColor: Colors.surface,
           },
-          animation: 'slide_from_right',
         }}
       >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="resume" />
-        <Stack.Screen name="practice" />
-        <Stack.Screen name="interview" />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen name="jobs" options={{ headerShown: false }} />
       </Stack>
     </>
   );

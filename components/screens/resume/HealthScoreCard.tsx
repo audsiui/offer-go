@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { Colors } from '../../../constants';
 import { FontSize, FontWeight, Spacing, BorderRadius } from '../../../constants/spacing';
 import { ProgressBar } from '../../common';
@@ -11,26 +10,36 @@ type HealthScoreCardProps = {
 };
 
 export function HealthScoreCard({ score, status, suggestion }: HealthScoreCardProps) {
+  const getScoreColor = () => {
+    if (score >= 80) return Colors.green['600'];
+    if (score >= 60) return Colors.amber['400'];
+    return Colors.tertiary;
+  };
+
+  const scoreColor = getScoreColor();
+
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.label}>简历健康度</Text>
-        <View style={styles.statusBadge}>
-          <Text style={styles.statusText}>{status}</Text>
-        </View>
-      </View>
-      <View style={styles.scoreRow}>
-        <Text style={styles.score}>{score}</Text>
+      <Text style={styles.label}>简历健康度</Text>
+      
+      <View style={styles.scoreSection}>
+        <Text style={[styles.score, { color: scoreColor }]}>{score}</Text>
         <Text style={styles.scoreMax}>/100</Text>
       </View>
-      <ProgressBar progress={score} height={8} fillColor={Colors.primary} />
-      <Text style={styles.suggestion}>{suggestion}</Text>
-      <MaterialIcons
-        name="analytics"
-        size={120}
-        color={Colors.primary}
-        style={styles.decorativeIcon}
+
+      <ProgressBar 
+        progress={score} 
+        height={8} 
+        fillColor={scoreColor}
+        backgroundColor={scoreColor + '20'}
       />
+
+      <View style={styles.statusRow}>
+        <View style={[styles.statusDot, { backgroundColor: scoreColor }]} />
+        <Text style={styles.statusText}>{status}</Text>
+      </View>
+
+      <Text style={styles.suggestion}>{suggestion}</Text>
     </View>
   );
 }
@@ -38,64 +47,61 @@ export function HealthScoreCard({ score, status, suggestion }: HealthScoreCardPr
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.surfaceContainerLowest,
-    borderRadius: BorderRadius['3xl'],
+    borderRadius: BorderRadius['2xl'],
     padding: Spacing.xl,
     shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.04,
-    shadowRadius: 30,
-    elevation: 4,
-    overflow: 'hidden',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: Spacing.md,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 6,
+    borderWidth: 1,
+    borderColor: Colors.surfaceContainer,
   },
   label: {
     fontSize: FontSize.sm,
     color: Colors.onSurfaceVariant,
     fontWeight: FontWeight.medium,
+    marginBottom: Spacing.sm,
   },
-  statusBadge: {
-    backgroundColor: Colors.tertiaryFixed,
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: 2,
-    borderRadius: BorderRadius.full,
-  },
-  statusText: {
-    fontSize: FontSize.xs,
-    fontWeight: FontWeight.bold,
-    color: Colors.onTertiaryFixedVariant,
-  },
-  scoreRow: {
+  scoreSection: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'baseline',
     marginBottom: Spacing.md,
   },
   score: {
     fontSize: 48,
     fontWeight: FontWeight.black,
-    color: Colors.primary,
     lineHeight: 48,
   },
   scoreMax: {
     fontSize: FontSize.lg,
     fontWeight: FontWeight.bold,
     color: Colors.onSurfaceVariant,
-    marginBottom: 8,
+    marginLeft: 2,
+  },
+  statusRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: Spacing.md,
+    marginBottom: Spacing.lg,
+    gap: Spacing.xs,
+  },
+  statusDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  statusText: {
+    fontSize: FontSize.sm,
+    fontWeight: FontWeight.bold,
+    color: Colors.onSurface,
   },
   suggestion: {
-    fontSize: FontSize.xs,
+    fontSize: FontSize.sm,
     color: Colors.onSurfaceVariant,
-    lineHeight: 18,
-    marginTop: Spacing.lg,
-  },
-  decorativeIcon: {
-    position: 'absolute',
-    right: -16,
-    bottom: -16,
-    opacity: 0.05,
+    lineHeight: 22,
+    backgroundColor: Colors.surfaceContainerLow,
+    padding: Spacing.md,
+    borderRadius: BorderRadius.lg,
   },
 });

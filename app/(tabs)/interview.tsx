@@ -1,14 +1,14 @@
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors, BorderRadius } from '../constants';
-import { FontWeight, Spacing, Layout } from '../constants/spacing';
-import { TopAppBar, BottomNavBar } from '../components/layout';
+import { Colors, BorderRadius } from '../../constants';
+import { FontWeight, Spacing, Layout } from '../../constants/spacing';
+import { TopAppBar } from '../../components/layout';
 import {
   InterviewerCard,
   Transcript,
   AIFeedback,
   ActionButtons,
-} from '../components/screens/interview';
+} from '../../components/screens/interview';
 
 const messages = [
   {
@@ -77,7 +77,6 @@ export default function InterviewPage() {
 
         <ActionButtons actions={actions} />
       </ScrollView>
-      <BottomNavBar />
     </View>
   );
 }

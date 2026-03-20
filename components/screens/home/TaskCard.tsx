@@ -35,7 +35,7 @@ export function TaskCard({
       activeOpacity={0.9}
     >
       <View style={[styles.iconContainer, { backgroundColor: iconBgColor }]}>
-        <MaterialIcons name={icon as any} size={isVertical ? 24 : 20} color={iconColor} />
+        <MaterialIcons name={icon as any} size={isVertical ? 28 : 22} color={iconColor} />
       </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
@@ -43,7 +43,7 @@ export function TaskCard({
       {buttonText && (
         <TouchableOpacity style={styles.button} onPress={onPress}>
           <Text style={styles.buttonText}>{buttonText}</Text>
-          <MaterialIcons name="arrow-forward" size={14} color={Colors.onPrimary} />
+          <MaterialIcons name="arrow-forward" size={16} color={Colors.onPrimary} />
         </TouchableOpacity>
       )}
     </TouchableOpacity>
@@ -53,51 +53,53 @@ export function TaskCard({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.surfaceContainerLowest,
-    borderRadius: BorderRadius.xl,
+    borderRadius: BorderRadius['2xl'],
     padding: Spacing.lg,
     shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: Colors.surfaceContainer,
   },
   containerVertical: {
     flex: 1,
-    minHeight: 180,
+    minHeight: 200,
     justifyContent: 'space-between',
   },
   iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: BorderRadius.lg,
+    width: 48,
+    height: 48,
+    borderRadius: BorderRadius.xl,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: Spacing.sm,
+    marginBottom: Spacing.md,
   },
   title: {
-    fontSize: FontSize.md,
+    fontSize: FontSize.lg,
     fontWeight: FontWeight.bold,
     color: Colors.onSurface,
-    marginBottom: 4,
+    marginBottom: Spacing.xs,
   },
   description: {
-    fontSize: FontSize.xs,
+    fontSize: FontSize.sm,
     color: Colors.onSurfaceVariant,
-    lineHeight: 16,
+    lineHeight: 20,
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.primary,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.sm + 2,
     borderRadius: BorderRadius.full,
-    gap: 4,
-    marginTop: Spacing.md,
+    gap: Spacing.xs,
+    marginTop: Spacing.lg,
     alignSelf: 'flex-start',
   },
   buttonText: {
-    fontSize: FontSize.xs,
+    fontSize: FontSize.sm,
     fontWeight: FontWeight.bold,
     color: Colors.onPrimary,
   },

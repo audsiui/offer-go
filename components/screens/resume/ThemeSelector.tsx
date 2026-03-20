@@ -27,6 +27,7 @@ export function ThemeSelector({ options, onSelect }: ThemeSelectorProps) {
             key={option.key}
             style={styles.option}
             onPress={() => onSelect?.(option.key)}
+            activeOpacity={0.8}
           >
             <View
               style={[
@@ -34,9 +35,14 @@ export function ThemeSelector({ options, onSelect }: ThemeSelectorProps) {
                 option.isSelected && styles.previewSelected,
               ]}
             >
-              <View style={[styles.previewBar, { backgroundColor: `${option.color}33` }]} />
-              <View style={[styles.previewShortBar, { backgroundColor: `${option.color}20` }]} />
-              <View style={[styles.previewLongBar, { backgroundColor: `${option.color}10` }]} />
+              <View style={[styles.previewBar, { backgroundColor: `${option.color}40` }]} />
+              <View style={[styles.previewShortBar, { backgroundColor: `${option.color}25` }]} />
+              <View style={[styles.previewLongBar, { backgroundColor: `${option.color}15` }]} />
+              {option.isSelected && (
+                <View style={[styles.checkMark, { backgroundColor: option.color }]}>
+                  <Text style={styles.checkMarkText}>✓</Text>
+                </View>
+              )}
             </View>
             <Text
               style={[
@@ -55,21 +61,20 @@ export function ThemeSelector({ options, onSelect }: ThemeSelectorProps) {
 
 const styles = StyleSheet.create({
   container: {
-    gap: Spacing.md,
+    gap: Spacing.lg,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 4,
   },
   title: {
-    fontSize: FontSize.lg,
+    fontSize: FontSize.xl,
     fontWeight: FontWeight.bold,
     color: Colors.onSurface,
   },
   selectedLabel: {
-    fontSize: FontSize.xs,
+    fontSize: FontSize.sm,
     color: Colors.onSurfaceVariant,
   },
   options: {
@@ -84,32 +89,53 @@ const styles = StyleSheet.create({
   preview: {
     aspectRatio: 0.75,
     width: '100%',
-    borderRadius: BorderRadius.lg,
+    borderRadius: BorderRadius.xl,
     backgroundColor: Colors.surfaceContainerLow,
-    padding: Spacing.sm,
-    gap: 4,
+    padding: Spacing.md,
+    gap: 6,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
   },
   previewSelected: {
     borderWidth: 2,
     borderColor: Colors.primary,
+    backgroundColor: Colors.surfaceContainerLowest,
   },
   previewBar: {
-    height: 8,
-    borderRadius: 4,
+    height: 10,
+    borderRadius: 5,
     width: '100%',
   },
   previewShortBar: {
-    height: 4,
-    borderRadius: 2,
-    width: '50%',
+    height: 6,
+    borderRadius: 3,
+    width: '60%',
   },
   previewLongBar: {
-    height: 4,
-    borderRadius: 2,
+    height: 6,
+    borderRadius: 3,
     width: '100%',
   },
+  checkMark: {
+    position: 'absolute',
+    top: Spacing.sm,
+    right: Spacing.sm,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkMarkText: {
+    color: Colors.white,
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+  },
   label: {
-    fontSize: FontSize.xs,
+    fontSize: FontSize.sm,
     fontWeight: FontWeight.medium,
     color: Colors.outline,
   },
