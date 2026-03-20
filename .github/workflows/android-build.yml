@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '25'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
@@ -33,22 +33,53 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Generate native Android project
+        run: npx expo prebuild --platform android
+
       - name: Decode keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/offergo-release.keystore
+
+      - name: Configure signing
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/offergo-release.keystore
+          cat >> android/gradle.properties << EOF
+
+          # Release signing config
+          MYAPP_UPLOAD_STORE_FILE=offergo-release.keystore
+          MYAPP_UPLOAD_KEY_ALIAS=offergo
+          MYAPP_UPLOAD_STORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}
+          MYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}
+          EOF
+
+      - name: Patch build.gradle for signing
+        run: |
+          python3 << 'PYEOF'
+          import re
+
+          with open('android/app/build.gradle', 'r') as f:
+              content = f.read()
+
+          pattern = r'(signingConfigs\s*\{\s*debug\s*\{[^}]*\}\s*)'
+          replacement = r'''\1
+          release {
+              if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                  storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                  storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                  keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                  keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+              }
+          }'''
+          content = re.sub(pattern, replacement, content)
+          content = content.replace('signingConfig signingConfigs.debug', 'signingConfig signingConfigs.release')
+
+          with open('android/app/build.gradle', 'w') as f:
+              f.write(content)
+          PYEOF
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
       - name: Build Release APK
-        run: |
-          cd android
-          ./gradlew app:assembleRelease
-        env:
-          MYAPP_UPLOAD_STORE_FILE: offergo-release.keystore
-          MYAPP_UPLOAD_KEY_ALIAS: offergo
-          MYAPP_UPLOAD_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          MYAPP_UPLOAD_KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: cd android && ./gradlew app:assembleRelease
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
